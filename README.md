@@ -26,4 +26,4 @@ $ ros2 launch mobo_bot_description spawn_and_view.launch.py
 ```
 
 you can drive it around using the teleop_twist_keyboard package or you can 
-also use the [pynput_teleop_twist_keyboard](https://github.com/samuko-things/pynput_teleop_twist_keyboard.git) package I wrote.
+also use the [pynput_teleop_twist_keyboard](https://github.com/samuko-things/pynput_teleop_twist_keyboard/tree/humble_dev) package I wrote.
