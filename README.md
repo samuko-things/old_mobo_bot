@@ -5,6 +5,7 @@
 ![obot](https://github.com/samuko-things/mobo_bot/blob/main/mobo_bot_pic1.png)
 
 ```
+NOTE: devvelopment is done in ros2-humble.
 clone (git clone git@github.com:samuko-things/mobo_bot.git) or Download
 the repo or in your ROS2 workspace, build, and source it.
 ```
