@@ -4,9 +4,9 @@
 
     <!-- <xacro:arg name="cam_visual"   default="false"/> -->
 
-    <xacro:property name="line_sense_angle"   value="${pi/2.5}"/>
+    <xacro:property name="line_sense_angle"   value="${pi/2}"/>
 
-    <xacro:property name="line_sense_mode"   value="false"/>
+    <xacro:property name="line_sense_mode"   value="true"/>
 
     <!-- CAMERA LINK FRAME -->
 
@@ -66,16 +66,16 @@
 
         <sensor type="camera" name="camera">
             <visualize>$(arg cam_visual)</visualize>
-            <update_rate>15.0</update_rate>
+            <update_rate>50.0</update_rate>
             <camera name="cam">
                 <horizontal_fov>1.4</horizontal_fov>
                 <image>
-                    <width>320</width>
-                    <height>240</height>
+                    <width>160</width>
+                    <height>120</height>
                     <format>R8G8B8</format>
                 </image>
                 <clip>
-                    <near>0.05</near>
+                    <near>0.02</near>
                     <far>5</far>
                 </clip>
                 <noise>

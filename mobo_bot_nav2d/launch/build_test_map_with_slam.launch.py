@@ -16,14 +16,16 @@ import xacro
 
 def generate_launch_description():
 
-    pkg_path = get_package_share_directory('mobo_bot_description')
+    nav_pkg_path = get_package_share_directory('mobo_bot_nav2d')
+    description_pkg_path = get_package_share_directory('mobo_bot_description')
+    
 
-    xacro_file = os.path.join(pkg_path,'urdf','urdf_description.xacro')
+    xacro_file = os.path.join(description_pkg_path,'urdf','urdf_description.xacro')
     robot_description_doc = xacro.parse(open(xacro_file))
     xacro.process_doc(robot_description_doc)
 
     world_file_name = 'test_world.world'
-    world_path = os.path.join(pkg_path, 'world', world_file_name)
+    world_path = os.path.join(description_pkg_path, 'world', world_file_name)
 
 
 
@@ -36,7 +38,7 @@ def generate_launch_description():
     )
 
 
-    rviz_config_file_path = os.path.join(pkg_path,'config','view_urdf1.rviz')
+    rviz_config_file_path = os.path.join(nav_pkg_path,'config','slam_config.rviz')
     rviz2_node = Node(
             package='rviz2',
             namespace='',
@@ -44,6 +46,20 @@ def generate_launch_description():
             name='rviz2',
             arguments=['-d', [os.path.join(rviz_config_file_path)]]
         )
+    
+    
+    slam_mapping_param_file = os.path.join(nav_pkg_path,'config','my_mapper_params_online_async.yaml')
+    slam_mapping_node = Node(
+        package='slam_toolbox',
+        executable='async_slam_toolbox_node',
+        name='slam_toolbox',
+        output='screen',
+        parameters=[slam_mapping_param_file],
+    #     remappings=[
+    #     # ('/odom', '/turtlesim1/turtle1/pose'),
+    #     # ('/output/cmd_vel', '/turtlesim2/turtle1/cmd_vel'),
+    # ]
+    )
 
 
 
@@ -81,11 +97,12 @@ def generate_launch_description():
             default_value=world_path,
             description='SDF world file',
         ),
-
-        # ExecuteProcess(cmd=['gazebo', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so'], output='screen'),
         ExecuteProcess(cmd=['gazebo', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', world_path], output='screen'),
+        
+        # ExecuteProcess(cmd=['gazebo', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so'], output='screen'),
 
         node_robot_state_publisher,
         rviz2_node,
         spawn_entity,
+        slam_mapping_node,
     ])
