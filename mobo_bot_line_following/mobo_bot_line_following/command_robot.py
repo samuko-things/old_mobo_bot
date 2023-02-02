@@ -12,7 +12,7 @@ class CommandRobot(Node):
         self.action_list = ('ff', 'f', 'l', 'r', 's')
         
         while rclpy.ok():
-            action = input('enter command: ')
+            action = input('enter command [ \'ff\', \'r\', \'l\', \'f\' ]: ')
             if action in self.action_list:
                 cmd = String()
                 cmd.data = action
