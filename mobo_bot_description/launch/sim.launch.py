@@ -2,80 +2,56 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 
+
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, ExecuteProcess, EmitEvent, RegisterEventHandler
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.conditions import IfCondition, UnlessCondition
-from launch.event_handlers import OnProcessExit
-from launch.events import Shutdown
-from launch.substitutions import LaunchConfiguration
+
 from launch_ros.actions import Node
-
-import xacro
-
-
 
 
 
 def generate_launch_description():
-    # delare any path variable
-    my_pkg_path = get_package_share_directory('mobo_bot_description')
-    
 
-    # Create the launch configuration variables
-    use_sim_time = LaunchConfiguration('use_sim_time')
-    use_joint_state_gui = LaunchConfiguration('use_joint_state_gui')
-    world = LaunchConfiguration('world')
-    robot_name = LaunchConfiguration('robot_name')    
-    
-    
-    # declare launch arguments
-    declare_use_sim_time_cmd = DeclareLaunchArgument(
-        'use_sim_time',
-        default_value='True',
-        description='use gazebo simulation clock if True'
-    )
-    
-    declare_use_joint_state_gui_cmd = DeclareLaunchArgument(
-        'use_joint_state_gui',
-        default_value='False',
-        description='whether to use the joint-state-publisher-gui package. use with rviz only'
-    )
-    
-    declare_world_cmd = DeclareLaunchArgument(
-        'world',
-        default_value=os.path.join(my_pkg_path, 'world', 'test_world.world'),
-        description='Full path to world model file to load')
-    
-    declare_robot_name_cmd = DeclareLaunchArgument(
-        'robot_name',
-        default_value='mobo_bot',
-        description='name of the robot')
 
-  
-  
-  
-  
-  
-  
-    # create needed nodes or launch files
-    rsp_launch = IncludeLaunchDescription(
+    # Include the robot_state_publisher launch file, provided by our own package. Force sim time to be enabled
+    # !!! MAKE SURE YOU SET THE PACKAGE NAME CORRECTLY !!!
+
+    package_name='mobo_bot_description' #<--- CHANGE ME
+    
+    world_file_name = 'empty.world'
+    world_path = os.path.join(get_package_share_directory(package_name), 'world', world_file_name)
+
+    rsp = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                [os.path.join(get_package_share_directory(package_name),'launch','rsp.launch.py')]
+            ), 
+            launch_arguments={'use_sim_time': 'false', 'use_ros2_control': 'false', 'gazebo_visual': 'true'}.items()
+    )
+
+
+
+
+    gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
+
+    # Include the Gazebo launch file, provided by the gazebo_ros package
+    gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
-                    [os.path.join(my_pkg_path,'launch','rsp.launch.py')]
-                    ), 
-                launch_arguments={'use_sim_time': use_sim_time, 
-                                  'use_joint_state_gui': use_joint_state_gui}.items()
-    )
-    
+                    [os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]
+                ),
+                launch_arguments={'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params_file}.items()
+             )
 
-    # entity_name = 'mobo_bot'
+
+
+    robot_name = 'mobo_bot'
     # initial spawn position
     x_pos = 0; y_pos = 0; z_pos = 0
     #initial spawn orientation
     roll = 0; pitch = 0; yaw = 0
     
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
-    start_gazebo_spawner_cmd = Node(
+    spawn_entity = Node(
         package='gazebo_ros', 
         executable='spawn_entity.py',
         arguments=[
@@ -85,36 +61,60 @@ def generate_launch_description():
             '-R', str(roll), '-P', str(pitch), '-Y', str(yaw)
             ],
         output='screen')
-    
-    start_gazebo_server_cmd = ExecuteProcess(
-        # condition=IfCondition(use_simulator),
-        cmd=['gazebo', '-s', 'libgazebo_ros_init.so',
-             '-s', 'libgazebo_ros_factory.so', world],
-        output='screen'
-        )
 
 
 
+    # # Start robot localization using an Extended Kalman filter
+    # ekf_file_path = os.path.join(get_package_share_directory(package_name),'config', 'ekf.yaml')
+    # node_ekf = Node(
+    #     package='robot_localization',
+    #     executable='ekf_node',
+    #     name='ekf_filter_node',
+    #     output='screen',
+    #     parameters=[ekf_file_path, {'use_sim_time': 'true'}])
+
+    # diff_drive_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["diff_cont"],
+    # )
+
+    # joint_broad_spawner = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=["joint_broad"],
+    # )
+
+
+    # Code for delaying a node (I haven't tested how effective it is)
+    # 
+    # First add the below lines to imports
+    # from launch.actions import RegisterEventHandler
+    # from launch.event_handlers import OnProcessExit
+    #
+    # Then add the following below the current diff_drive_spawner
+    # delayed_diff_drive_spawner = RegisterEventHandler(
+    #     event_handler=OnProcessExit(
+    #         target_action=spawn_entity,
+    #         on_exit=[diff_drive_spawner],
+    #     )
+    # )
+    #
+    # Replace the diff_drive_spawner in the final return with delayed_diff_drive_spawner
 
 
 
-
-     # Create the launch description and populate
-    ld = LaunchDescription()
-
-
-    # add the necessary declared launch arguments to the launch description
-    ld.add_action(declare_use_sim_time_cmd)
-    ld.add_action(declare_use_joint_state_gui_cmd)
-    ld.add_action(declare_world_cmd)
-    ld.add_action(declare_robot_name_cmd)
-    
-
-    # Add the nodes to the launch description
-    ld.add_action(rsp_launch)
-    ld.add_action(start_gazebo_server_cmd)
-    ld.add_action(start_gazebo_spawner_cmd)
-
-    
-    return ld      # return (i.e send) the launch description for excecution
-
+    # Launch them all!
+    return LaunchDescription([
+        DeclareLaunchArgument(
+            'world',
+            default_value=world_path,
+            description='SDF world file',
+        ),
+        
+        rsp,
+        gazebo,
+        spawn_entity,
+        # diff_drive_spawner,
+        # joint_broad_spawner
+    ])

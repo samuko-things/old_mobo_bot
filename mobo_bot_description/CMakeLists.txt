@@ -18,7 +18,6 @@ find_package(std_msgs REQUIRED)
 install(DIRECTORY
     config
     launch
-    meshes
     urdf
     world
     DESTINATION share/${PROJECT_NAME}/
