@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="mobo_bot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
-    <xacro:macro name="box_with_fillet" params="x y z size_x size_y size_z fillet_radius material">
+    <xacro:macro name="insert_box_with_fillet" params="x y z size_x size_y size_z fillet_radius material">
             <!-- logitudinal box -->
             <visual>
                 <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>

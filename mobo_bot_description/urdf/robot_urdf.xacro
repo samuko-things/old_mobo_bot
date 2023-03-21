@@ -3,7 +3,7 @@
 
     <!-- ########### ARGUMENTS ######################### -->
     <xacro:arg name="use_ros2_control" default="false"/>
-    <xacro:arg name="gazebo_visual" default="true"/>
+    <!-- <xacro:arg name="gazebo_visual" default="true"/> -->
 
     <!-- <xacro:arg name="laser_visual" default="false"/> -->
     <!-- <xacro:arg name="imu_visual"   default="true"/> -->

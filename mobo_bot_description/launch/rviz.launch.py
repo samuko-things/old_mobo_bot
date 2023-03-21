@@ -28,7 +28,7 @@ def generate_launch_description():
             PythonLaunchDescriptionSource(
                 [os.path.join(my_pkg_path,'launch','rsp.launch.py')]
             ), 
-            launch_arguments={'use_sim_time': 'false', 'use_ros2_control': 'false', 'gazebo_visual': 'false'}.items()
+            launch_arguments={'use_sim_time': 'false', 'use_ros2_control': 'false'}.items()
     )
     
     joint_state_publisher_gui_node = Node(

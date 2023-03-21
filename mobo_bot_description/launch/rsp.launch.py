@@ -46,7 +46,7 @@ def generate_launch_description():
     # robot_description_config = xacro.process_file(xacro_file)
     # robot_description_xml = robot_description_config.toxml()
     
-    robot_description_config= Command(['xacro ', xacro_file, ' use_ros2_control:=', use_ros2_control, ' gazebo_visual:=', gazebo_visual])
+    robot_description_config= Command(['xacro ', xacro_file, ' use_ros2_control:=', use_ros2_control])
     robot_description_xml = ParameterValue(robot_description_config, value_type=str)
   
     # Create a robot_state_publisher node
