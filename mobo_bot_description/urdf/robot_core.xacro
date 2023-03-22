@@ -5,6 +5,7 @@
     <xacro:include filename="other_parts/box_with_fillet_macro.xacro"/>
     <xacro:include filename="other_parts/drive_wheel_macro.xacro"/>
     <xacro:include filename="other_parts/face_macro.xacro"/>
+    
     <xacro:include filename="sensors/lidar.xacro"/>
     <xacro:include filename="sensors/imu.xacro"/>
     <xacro:include filename="sensors/cam.xacro"/>
@@ -156,7 +157,7 @@
         parent_name="chassis" 
         x="${-chassis_length/4}" y="0" z="${chassis_height+lidar_z_offset}"
         mass="0.08" samples="360"
-        min_angle="${-pi/2}" max_angle="${pi/2}"
+        min_angle="${-pi*2}" max_angle="${pi*2}"
         min_range="0.1" max_range="10"
         visualize="false"/>
 

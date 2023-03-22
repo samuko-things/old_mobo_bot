@@ -16,7 +16,6 @@ def generate_launch_description():
     # Check if we're told to use sim time
     use_sim_time = LaunchConfiguration('use_sim_time')
     use_ros2_control = LaunchConfiguration('use_ros2_control')
-    gazebo_visual = LaunchConfiguration('gazebo_visual')
 
     
     
@@ -32,12 +31,7 @@ def generate_launch_description():
         default_value='false',
         description='Use ros2_control if true'
     )
-    
-    declare_gazebo_visual_cmd = DeclareLaunchArgument(
-        'gazebo_visual',
-        default_value='true',
-        description='display robot mesh in gazebo if true'
-    )
+
     
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory('mobo_bot_description'))
@@ -69,7 +63,6 @@ def generate_launch_description():
     # add the necessary declared launch arguments to the launch description
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_use_ros2_control_cmd)
-    ld.add_action(declare_gazebo_visual_cmd)
     
 
     # Add the nodes to the launch description

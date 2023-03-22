@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
-    <xacro:macro name="wheel_transmission" params="joint_name">
+    <xacro:macro name="insert_wheel_transmission" params="joint_name">
         <joint name="${joint_name}">
             <command_interface name="velocity">
                 <param name="min">-10.0</param>
