@@ -149,15 +149,16 @@
 
 
 
-
-
     <!--  lidar -->
     <xacro:property name="lidar_z_offset" value="0.1"/>
     <xacro:insert_lidar 
         base_name="lidar" 
         parent_name="chassis" 
         x="${-chassis_length/4}" y="0" z="${chassis_height+lidar_z_offset}"
-        mass="0.08"/>
+        mass="0.08" samples="360"
+        min_angle="${-pi/2}" max_angle="${pi/2}"
+        min_range="0.1" max_range="10"
+        visualize="false"/>
 
 
 
@@ -172,12 +173,35 @@
 
 
 
+
     <!--  line tracking camera style -->
     <!-- <xacro:insert_camera
         base_name="line_cam" 
         parent_name="chassis" 
         x="${(chassis_length*0.375)+0.03}" y="0" z="${0.05-wheel_radius}"
-        mass="0.005" tilt_angle="${pi/2.1}"/> -->
+        mass="0.005"
+        width="320" height="240"
+        min_range="0.02" max_range="5.0"
+        tilt_angle="${pi/2.1}"
+        visualize="false"/> -->
+    
+    <!--  front sonar sensor -->
+    <!-- <xacro:insert_sonar
+        base_name="sonar" 
+        parent_name="chassis" 
+        x="${(chassis_length*0.375)+0.005}" y="0" z="${(chassis_height/2)+0.04}"
+        mass="0.0005"
+        min_range="0.02" max_range="3.0"
+        resolution="0.01" visualize="false"/> -->
+
+
+
+
+
+
+
+
+
 
 
     <!--  normal camera style -->
@@ -187,18 +211,20 @@
         base_name="line_cam" 
         parent_name="chassis" 
         x="${(chassis_length*0.375)+cam_x_offset}" y="0" z="${chassis_height+cam_z_offset}"
-        mass="0.005" tilt_angle="0"/> -->
-
-
-
-
+        mass="0.005"
+        width="320" height="240"
+        min_range="0.02" max_range="5.0"
+        tilt_angle="0"
+        visualize="true"/> -->
 
     <!--  front sonar sensor -->
     <!-- <xacro:insert_sonar
         base_name="sonar" 
         parent_name="chassis" 
-        x="${(chassis_length*0.375)+0.005}" y="0" z="${chassis_height/2}"
-        mass="0.0005"/> -->
+        x="${(chassis_length*0.375)+0.005}" y="0" z="${(chassis_height/2)}"
+        mass="0.0005"
+        min_range="0.02" max_range="3.0"
+        resolution="0.01" visualize="false"/> -->
 
 
 
