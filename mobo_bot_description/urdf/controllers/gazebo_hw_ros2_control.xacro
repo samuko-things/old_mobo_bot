@@ -3,7 +3,7 @@
 
     <xacro:include filename="transmission_macros.xacro"/>
     
-    <ros2_control name="mobo_bot_diff_drive_ros2_control" type="system">
+    <ros2_control name="mobo_bot_diff_drive_gazebo_hw_ros2_control" type="system">
         <hardware>
             <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </hardware>
@@ -17,6 +17,9 @@
             <robot_namespace>mobo_bot</robot_namespace>
             <robot_param_node>robot_state_publisher</robot_param_node>
             <parameters>$(find mobo_bot_description)/config/diff_drive_controller.yaml</parameters>
+            <ros>
+                <remapping>/diff_drive_controller/cmd_vel_unstamped:=/cmd_vel</remapping>
+            </ros>
         </plugin>
     </gazebo>
 

@@ -3,12 +3,6 @@
 
     <!-- ########### ARGUMENTS ######################### -->
     <xacro:arg name="use_ros2_control" default="false"/>
-    <!-- <xacro:arg name="gazebo_visual" default="true"/> -->
-
-    <!-- <xacro:arg name="laser_visual" default="false"/> -->
-    <!-- <xacro:arg name="imu_visual"   default="true"/> -->
-    <!-- <xacro:arg name="sonar_visual"   default="false"/> -->
-    <!-- <xacro:arg name="cam_visual"   default="false"/> -->
     <!-- ############################################### -->
 
 
@@ -18,16 +12,10 @@
     <xacro:include filename="robot_core.xacro" />
 
     <xacro:if value="$(arg use_ros2_control)">
-        <xacro:include filename="controllers/ros2_control.xacro" />
+        <xacro:include filename="controllers/gazebo_hw_ros2_control.xacro" />
     </xacro:if>
     <xacro:unless value="$(arg use_ros2_control)">
         <xacro:include filename="controllers/gazebo_control.xacro" />
     </xacro:unless>
-    
-    <!-- <xacro:include filename="sensors/lidar.xacro" /> -->
-    <!-- <xacro:include filename="sensors/imu.xacro" /> -->
-    <!-- <xacro:include filename="sensors/camera.xacro" /> -->
-
-    <!-- <xacro:include filename="other_parts/face_macro.xacro" /> -->
     
 </robot>

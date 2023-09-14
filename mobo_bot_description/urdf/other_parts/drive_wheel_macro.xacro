@@ -30,10 +30,10 @@
         <gazebo reference="${name}">
             <mu1>1.0</mu1>
             <mu2>1.0</mu2>
-            <!-- <kp>${kp}</kp> -->
-            <!-- <kd>${kd}</kd> -->
+            <!-- <kp>1000000</kp> -->
+            <!-- <kd>0.001</kd> -->
+            <!-- <minDepth>0.001</minDepth> -->
             <!-- <fdir1>${fdir}</fdir1> -->
-            <!-- <minDepth>0.005</minDepth> -->
             <material>Gazebo/FlatBlack</material>
         </gazebo>
     </xacro:macro>
@@ -61,8 +61,8 @@
             <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <!-- <cylinder radius="${radius}" length="${thickness}"/> -->
-                    <sphere radius="${radius}"/>
+                    <cylinder radius="${radius}" length="${thickness}"/>
+                    <!-- <sphere radius="${radius}"/> -->
                 </geometry>
             </collision>
             <xacro:inertial_cylinder mass="${mass}" length="${thickness}" radius="${radius}">
@@ -108,17 +108,6 @@
                 <xacro:material_red/>
             </visual>
 
-
-            <!-- <collision>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <geometry>
-                    <cylinder radius="${(radius*1.2)/2}" length="${thickness*2}"/>
-                </geometry>
-            </collision>
-
-            <xacro:inertial_cylinder mass="0.01" radius="${(radius*1.2)/2}" length="${thickness+0.005}">
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-            </xacro:inertial_cylinder> -->
         </link>
 
         <gazebo reference="${base_name}_rim">

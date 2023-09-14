@@ -32,6 +32,7 @@ def generate_launch_description():
 
     use_sim_time = 'true'
     use_ros2_control = 'false'
+
     rsp = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 [os.path.join(get_package_share_directory(package_name),'launch','rsp.launch.py')]
@@ -76,16 +77,6 @@ def generate_launch_description():
             '-R', str(roll), '-P', str(pitch), '-Y', str(yaw)
             ],
         output='screen')
-
-
-    # # Start robot localization using an Extended Kalman filter
-    # ekf_file_path = os.path.join(get_package_share_directory(package_name),'config', 'ekf.yaml')
-    # node_ekf = Node(
-    #     package='robot_localization',
-    #     executable='ekf_node',
-    #     name='ekf_filter_node',
-    #     output='screen',
-    #     parameters=[ekf_file_path, {'use_sim_time': 'true'}])
 
 
     diff_drive_controller_spawner = Node(
