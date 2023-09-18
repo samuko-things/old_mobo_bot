@@ -1,15 +1,9 @@
 <?xml version="1.0"?>
-<robot name="mobo_bot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
     <xacro:macro name="material_black">
         <material name="black">
             <color rgba="0.1 0.1 0.1 1"/>
-        </material>
-    </xacro:macro>
-
-    <xacro:macro name="material_red">
-        <material name="red">
-            <color rgba="1 0 0 1"/>
         </material>
     </xacro:macro>
 
@@ -42,7 +36,7 @@
 
 
 
-    <xacro:macro name="insert_drive_wheel" params="base_name parent_name x y z mass radius thickness spoke_width">
+    <xacro:macro name="insert_drive_wheel" params="base_name parent_name x y z mass radius thickness">
         <joint name="${base_name}_joint" type="continuous">
             <parent link="${parent_name}"/>
             <child link="${base_name}"/>
@@ -71,48 +65,6 @@
         </link>
 
         <xacro:gazebo_wheel_settings name="${base_name}"/>
-
-        <joint name="${base_name}_rim_joint" type="fixed">
-            <parent link="${base_name}"/>
-            <child link="${base_name}_rim"/>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-        </joint>
-
-        <link name="${base_name}_rim">
-            <visual>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <geometry>
-                    <box size="${spoke_width} ${radius*1.2} ${thickness+0.005}"/>
-                </geometry>
-                <xacro:material_red/>
-            </visual>
-            <visual>
-                <origin xyz="0 0 0" rpy="0 0 ${pi/2}"/>
-                <geometry>
-                    <box size="${spoke_width} ${radius*1.2} ${thickness+0.005}"/>
-                </geometry>
-                <xacro:material_red/>
-            </visual>
-            <visual>
-                <origin xyz="0 0 0" rpy="0 0 ${-pi/4}"/>
-                <geometry>
-                    <box size="${spoke_width} ${radius*1.2} ${thickness+0.005}"/>
-                </geometry>
-                <xacro:material_red/>
-            </visual>
-            <visual>
-                <origin xyz="0 0 0" rpy="0 0 ${pi/4}"/>
-                <geometry>
-                    <box size="${spoke_width} ${radius*1.2} ${thickness+0.005}"/>
-                </geometry>
-                <xacro:material_red/>
-            </visual>
-
-        </link>
-
-        <gazebo reference="${base_name}_rim">
-            <material>Gazebo/Red</material>
-        </gazebo>
 
     </xacro:macro>
 
