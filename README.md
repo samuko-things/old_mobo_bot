@@ -27,7 +27,9 @@ $ ros2 launch mobo_bot_description rviz.launch.py
 $ ros2 launch mobo_bot_description sim.launch.py
 ```
 
-to spawn robot in gazebo and view in RVIZ simultaneously:
+**to spawn robot in gazebo and view in RVIZ simultaneously:**
+
+![mobo_obot](./docs/mobo_bot_sim.gif)
 
 ```shell
 $ ros2 launch mobo_bot_description sim_and_rviz.launch.py
