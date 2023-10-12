@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /TF1
       Splitter Ratio: 0.5
     Tree Height: 407
   - Class: rviz_common/Selection
@@ -69,22 +70,27 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        castor_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         chassis:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_rim:
+        front_left_rim:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_wheel:
+        front_left_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_right_rim:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_right_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -94,12 +100,22 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        right_rim:
+        rear_left_rim:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_wheel:
+        rear_left_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear_right_rim:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear_right_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -124,41 +140,51 @@ Visualization Manager:
         All Enabled: false
         base_link:
           Value: true
-        castor_wheel:
-          Value: false
         chassis:
           Value: true
-        left_rim:
-          Value: false
-        left_wheel:
+        front_left_rim:
+          Value: true
+        front_left_wheel:
+          Value: true
+        front_right_rim:
+          Value: true
+        front_right_wheel:
           Value: true
         lidar:
           Value: true
-        right_rim:
-          Value: false
-        right_wheel:
+        rear_left_rim:
+          Value: true
+        rear_left_wheel:
+          Value: true
+        rear_right_rim:
+          Value: true
+        rear_right_wheel:
           Value: true
         sonar:
           Value: true
-      Marker Scale: 0.30000001192092896
+      Marker Scale: 0.25
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
         base_link:
-          castor_wheel:
-            {}
           chassis:
             lidar:
               {}
             sonar:
               {}
-          left_wheel:
-            left_rim:
+          front_left_wheel:
+            front_left_rim:
               {}
-          right_wheel:
-            right_rim:
+          front_right_wheel:
+            front_right_rim:
+              {}
+          rear_left_wheel:
+            rear_left_rim:
+              {}
+          rear_right_wheel:
+            rear_right_rim:
               {}
       Update Interval: 0
       Value: true
@@ -223,10 +249,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.46039825677871704
+      Pitch: 0.8653985261917114
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.9854069948196411
+      Yaw: 0.8454025387763977
     Saved: ~
 Window Geometry:
   Displays:

@@ -11,11 +11,11 @@ controller_manager:
 
 diff_drive_controller:
   ros__parameters:
-    left_wheel_names: ["left_wheel_joint"]
-    right_wheel_names: ["right_wheel_joint"]
+    left_wheel_names: ['front_left_wheel_joint','rear_left_wheel_joint']
+    right_wheel_names: ['front_right_wheel_joint', 'rear_right_wheel_joint']
 
+    wheels_per_side: 2  # if 2 -> skid steer and both are controlled by 1 signal
     wheel_separation: 0.214
-    wheels_per_side: 1  # if 2 -> skid steer and both are controlled by 1 signal
     wheel_radius: 0.034 # diameter 0.068m
 
     wheel_separation_multiplier: 1.0
