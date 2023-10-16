@@ -4,6 +4,7 @@ from ament_index_python.packages import get_package_share_directory
 
 
 from launch import LaunchDescription
+from launch.substitutions import LaunchConfiguration, Command
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
@@ -30,8 +31,26 @@ def generate_launch_description():
         )
 
 
-    use_sim_time = 'true'
-    use_ros2_control = 'false'
+    # Check if we're told to use sim time
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    use_ros2_control = LaunchConfiguration('use_ros2_control')
+
+    use_ros2_controller = 'false'
+    
+     # declare launch arguments
+    declare_use_sim_time_cmd = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='true',
+        description='Use sim time if true'
+    )
+    
+    declare_use_ros2_control_cmd = DeclareLaunchArgument(
+        'use_ros2_control',
+        default_value=use_ros2_controller,
+        description='Use ros2_control if true'
+    )
+
+
 
     rsp = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -40,14 +59,6 @@ def generate_launch_description():
             launch_arguments={'use_sim_time': use_sim_time, 'use_ros2_control': use_ros2_control}.items()
     )
 
-
-    rviz_config_file = os.path.join(get_package_share_directory(package_name),'config','robot_view_sim.rviz')
-    rviz_node = Node(
-        package='rviz2',
-        executable='rviz2',
-        arguments=['-d', rviz_config_file],
-        output='screen'
-    )
 
     gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
 
@@ -110,15 +121,16 @@ def generate_launch_description():
 
 
     # add the necessary declared launch arguments to the launch description
+    ld.add_action(declare_use_sim_time_cmd)
+    ld.add_action(declare_use_ros2_control_cmd)
     ld.add_action(declare_world_cmd)
     
     # Add the nodes to the launch description
     ld.add_action(rsp)
-    ld.add_action(rviz_node)
     ld.add_action(gazebo)
     ld.add_action(spawn_entity)
     
-    if use_ros2_control=='true':
+    if use_ros2_controller=='true':
         ld.add_action(joint_state_broadcaster_spawner)
         # ld.add_action(diff_drive_controller_spawner)
         ld.add_action(delayed_diff_drive_controller_spawner)
