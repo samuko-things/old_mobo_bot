@@ -5,6 +5,7 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from launch_ros.actions import Node
@@ -13,7 +14,6 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-
     # Include the robot_state_publisher launch file, provided by our own package. Force sim time to be enabled
     # !!! MAKE SURE YOU SET THE PACKAGE NAME CORRECTLY !!!
 
@@ -21,6 +21,25 @@ def generate_launch_description():
     
     world_file_name = 'empty.world'
     world_path = os.path.join(get_package_share_directory(package_name), 'world', world_file_name)
+
+    is_sim_time = 'true'
+    is_ros2_control = 'false'
+    
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    use_ros2_control = LaunchConfiguration('use_ros2_control')
+
+     # declare launch arguments
+    declare_use_sim_time_cmd = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value=is_sim_time,
+        description='Use sim time if true'
+    )
+    
+    declare_use_ros2_control_cmd = DeclareLaunchArgument(
+        'use_ros2_control',
+        default_value=is_ros2_control,
+        description='Use ros2_control if true'
+    )
     
     declare_world_cmd = DeclareLaunchArgument(
             'world',
@@ -29,9 +48,6 @@ def generate_launch_description():
         )
 
 
-
-    use_sim_time = 'true'
-    use_ros2_control = 'false'
     
     rsp = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -102,13 +118,15 @@ def generate_launch_description():
 
     # add the necessary declared launch arguments to the launch description
     ld.add_action(declare_world_cmd)
+    ld.add_action(declare_use_sim_time_cmd)
+    ld.add_action(declare_use_ros2_control_cmd)
     
     # Add the nodes to the launch description
     ld.add_action(rsp)
     ld.add_action(gazebo)
     ld.add_action(spawn_entity)
     
-    if use_ros2_control=='true':
+    if is_ros2_control=='true':
         ld.add_action(joint_state_broadcaster_spawner)
         # ld.add_action(diff_drive_controller_spawner)
         ld.add_action(delayed_diff_drive_controller_spawner)
