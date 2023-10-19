@@ -8,7 +8,7 @@
     
     <xacro:include filename="sensors/sonar.xacro"/>
     <xacro:include filename="sensors/lidar.xacro"/>
-    <!-- <xacro:include filename="sensors/imu.xacro"/> -->
+    <xacro:include filename="sensors/imu.xacro"/>
     <!-- <xacro:include filename="sensors/cam.xacro"/> -->
 
 
@@ -211,10 +211,10 @@
     
 
     <!--  imu -->
-    <!-- <xacro:insert_imu
+    <xacro:insert_imu
         base_name="imu" 
         parent_name="chassis" 
-        x="0" y="0" z="${chassis_height}"/> -->
+        x="0" y="0" z="${chassis_height}"/>
 
 
 
