@@ -51,7 +51,7 @@ def generate_launch_description():
     )
 
 
-    rviz_config_file = os.path.join(get_package_share_directory(package_name),'config','sim_with_test_world.config.rviz')
+    rviz_config_file = os.path.join(get_package_share_directory(package_name),'config','sim_robot_with_rviz.config.rviz')
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
