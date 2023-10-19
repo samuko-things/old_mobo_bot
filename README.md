@@ -1,7 +1,7 @@
 # mobo_bot 
 Differential drive robot I designed with pure urdf (i.e no meshes) to learn different navigation concepts in ros2
 
-> NOTE: development is currently done in ros2-humble.
+> NOTE: development is currently done in **ros2-humble** and **Ubuntu 22.04 OS**.
 
 <br/>
 <br/>
@@ -10,6 +10,10 @@ Differential drive robot I designed with pure urdf (i.e no meshes) to learn diff
 Before you start cloning/dowloading the repo to use/test the **mobo_bot**, ***Firstly***, it is expected that you have ros2-humble and colcon installed on your PC and that you are at least familiar with ros2 basics. ***Secondly***, you'll need to install the follwing ros2 packages on your computer PC (or workspace). Install the ones you do not have or just install all of them.
 
 
+- update and upgrade your ubuntu repos and packages
+  ```shell
+  sudo apt update && sudo apt upgrade
+  ```
 - xacro for urdf processing
   ```shell
   sudo apt install ros-humble-xacro
