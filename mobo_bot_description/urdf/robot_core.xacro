@@ -17,7 +17,7 @@
     <xacro:property name="chassis_height" value="0.07"/>
     <xacro:property name="chassis_mass" value="3.0"/>
 
-    <xacro:property name="wheel_seperation" value="0.214"/>
+    <xacro:property name="wheel_seperation" value="0.22"/>
     <xacro:property name="wheel_radius" value="0.034"/>
     <xacro:property name="wheel_width" value="0.026"/>
     <xacro:property name="wheel_mass" value="0.08"/>
@@ -52,7 +52,7 @@
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link"/>
         <child link="chassis"/>
-        <origin xyz="0 0 ${(wheel_radius*2)+0.002}"/>
+        <origin xyz="0 0 ${wheel_radius}"/>
     </joint>
 
     <link name="chassis">
@@ -66,7 +66,7 @@
             </geometry>
         </collision>
         <xacro:inertial_box mass="${chassis_mass}" x="${chassis_length}" y="${chassis_width}" z="${chassis_height}">
-            <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
+            <origin xyz="0 0 ${wheel_radius/2}" rpy="0 0 0"/>
         </xacro:inertial_box>
     </link>
     <gazebo reference="chassis">
@@ -89,7 +89,7 @@
     <xacro:insert_drive_wheel 
         base_name="front_left_wheel" 
         parent_name="base_link" 
-        x="0.05" y="${wheel_seperation/2}" z="${wheel_radius}"
+        x="0.04" y="${wheel_seperation/2}" z="${wheel_radius}"
         mass="${wheel_mass}"
         radius="${wheel_radius}"
         thickness="${wheel_width}"/>
@@ -112,7 +112,7 @@
     <xacro:insert_drive_wheel 
         base_name="rear_left_wheel" 
         parent_name="base_link" 
-        x="-0.05" y="${wheel_seperation/2}" z="${wheel_radius}"
+        x="-0.04" y="${wheel_seperation/2}" z="${wheel_radius}"
         mass="${wheel_mass}"
         radius="${wheel_radius}"
         thickness="${wheel_width}"/>
@@ -136,7 +136,7 @@
     <xacro:insert_drive_wheel 
         base_name="front_right_wheel" 
         parent_name="base_link" 
-        x="0.05" y="${-wheel_seperation/2}" z="${wheel_radius}"
+        x="0.04" y="${-wheel_seperation/2}" z="${wheel_radius}"
         mass="${wheel_mass}"
         radius="${wheel_radius}"
         thickness="${wheel_width}"/>
@@ -158,7 +158,7 @@
     <xacro:insert_drive_wheel 
         base_name="rear_right_wheel" 
         parent_name="base_link" 
-        x="-0.05" y="${-wheel_seperation/2}" z="${wheel_radius}"
+        x="-0.04" y="${-wheel_seperation/2}" z="${wheel_radius}"
         mass="${wheel_mass}"
         radius="${wheel_radius}"
         thickness="${wheel_width}"/>

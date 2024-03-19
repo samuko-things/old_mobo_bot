@@ -19,7 +19,7 @@ def generate_launch_description():
     # delare any path variable
     my_pkg_path = get_package_share_directory('mobo_bot_description')
     
-    rviz_config_file = os.path.join(my_pkg_path,'config','robot_view_sim.rviz')
+    rviz_config_file = os.path.join(my_pkg_path,'config','robot_sim.rviz')
 
     
     rviz_node = Node(

@@ -13,7 +13,7 @@ colcon build --packages-select mobo_bot_description --symlink-install
 
 **to view robot in RVIZ:**
 
-![mobo_obot](./docs/mobo_bot_rviz_view.png)
+![mobo_obot](./docs/mobo_bot4_rviz.png)
 
 ```shell
 $ ros2 launch mobo_bot_description rviz.launch.py
@@ -21,7 +21,7 @@ $ ros2 launch mobo_bot_description rviz.launch.py
 
 **to spawn robot in gazebo:**
 
-![mobo_obot](./docs/mobo_bot_gazebo_view.png)
+![mobo_obot](./docs/mobo_bot4_gazebo.png)
 
 ```shell
 $ ros2 launch mobo_bot_description sim.launch.py
@@ -29,10 +29,14 @@ $ ros2 launch mobo_bot_description sim.launch.py
 
 **to spawn robot in gazebo and view in RVIZ simultaneously:**
 
-![mobo_obot](./docs/mobo_bot_sim.gif)
+![mobo_obot](./docs/mobo_bot4_sim_test.gif)
 
 ```shell
 $ ros2 launch mobo_bot_description sim_and_rviz.launch.py
+```
+and run
+```shell
+$ ros2 launch mobo_bot_description rviz_sim.launch.py
 ```
 ---
 you can drive it around using the teleop_twist_keyboard package or you can

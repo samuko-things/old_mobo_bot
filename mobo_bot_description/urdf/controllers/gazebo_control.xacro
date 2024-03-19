@@ -12,8 +12,8 @@
             <right_joint>rear_right_wheel_joint</right_joint>
 
             <!-- kinematics -->
-            <wheel_separation>0.214</wheel_separation>
-            <wheel_separation>0.214</wheel_separation>
+            <wheel_separation>0.22</wheel_separation>
+            <wheel_separation>0.22</wheel_separation>
 
             <wheel_diameter>0.068</wheel_diameter>
             <wheel_diameter>0.068</wheel_diameter>
