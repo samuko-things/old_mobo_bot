@@ -34,7 +34,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
     use_ros2_control = LaunchConfiguration('use_ros2_control')
 
-    use_ros2_controller = 'true'
+    use_ros2_controller = 'false'
     
      # declare launch arguments
     declare_use_sim_time_cmd = DeclareLaunchArgument(
